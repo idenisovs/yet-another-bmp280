@@ -3,6 +3,14 @@ export declare const reset = 224;
 export declare const status = 243;
 export declare const ctrl_meas = 244;
 export declare const config = 245;
+export declare const dig_T1: {
+    lsb: number;
+    msb: number;
+};
+export declare const dig_P9: {
+    lsb: number;
+    msb: number;
+};
 export declare const press: {
     msb: number;
     lsb: number;
