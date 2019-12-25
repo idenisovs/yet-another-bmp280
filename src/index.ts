@@ -24,14 +24,15 @@ class BMP280 implements Properties {
         }
 
         this.device = await connect(this.bus, this.address);
+
         await this.writeConfig(this.configuration);
     }
 
     async readConfig(): Promise<Configuration> {
         const registers = new Registers();
 
-        registers.ctrl_meas = await registerRead(this.device as I2cBus, this.address, ctrl_meas);
-        registers.config = await registerRead(this.device as I2cBus, this.address, config);
+        registers.ctrl_meas = await this.read(ctrl_meas);
+        registers.ctrl_meas = await this.read(config);
 
         return new DefaultConfiguration(registers);
     }
@@ -41,8 +42,16 @@ class BMP280 implements Properties {
 
         const registers = cfg.registers;
 
-        await registerWrite(this.device as I2cBus, this.address, ctrl_meas, registers.ctrl_meas);
-        await registerWrite(this.device as I2cBus, this.address, config, registers.config);
+        await this.write(ctrl_meas, registers.ctrl_meas);
+        await this.write(config, registers.config);
+    }
+
+    async read(register: number): Promise<number> {
+        return await registerRead(this.device as I2cBus, this.address, register)
+    }
+
+    async write(register: number, value: number): Promise<void> {
+        await registerWrite(this.device as I2cBus, this.address, register, value);
     }
 
     async disconnect(): Promise<void> {
