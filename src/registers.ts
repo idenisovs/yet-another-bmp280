@@ -1,7 +1,7 @@
-export const id = 0xD0;
+export const deviceId = 0xD0;
 export const reset = 0xE0;
 export const status = 0xF3;
-export const measure = 0xF4;
+export const ctrl_meas = 0xF4;
 export const config = 0xF5;
 
 export const press = {
@@ -15,3 +15,8 @@ export const temp = {
     lsb: 0xFB,
     xlsb: 0xFC
 };
+
+export class Registers {
+    ctrl_meas: number = 0;
+    config: number = 0
+}

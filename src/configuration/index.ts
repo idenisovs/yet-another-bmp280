@@ -9,5 +9,5 @@ export default interface Configuration {
     oversampling: {
         pressure: Oversampling,
         temperature: Oversampling
-    }
+    };
 }
