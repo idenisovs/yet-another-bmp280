@@ -2,11 +2,12 @@ import {I2cBus} from 'i2c-bus';
 import Properties from './properties';
 import Configuration from './configuration';
 import {DefaultConfiguration, WeatherMonitoring} from './configuration/predefined';
-import {connect, disconnect, registerRead, registerWrite, readBlock} from './commands';
-import {ctrl_meas, config, press, Registers, dig_T1, dig_P9} from './registers';
+import {connect, disconnect, readBlock, registerRead, registerWrite} from './commands';
+import {config, ctrl_meas, dig_P9, dig_T1, press, Registers} from './registers';
 import Measurements from './measurements';
 import {uint20} from './data-types';
 import Calibration from './calibration';
+import {Mode} from './configuration/mode';
 
 class BMP280 implements Properties {
     device: I2cBus|null;
@@ -14,6 +15,10 @@ class BMP280 implements Properties {
     address: number;
     configuration: Configuration;
     calibration: Calibration|null;
+    registers: Registers = {
+        ctrl_meas: 0,
+        config: 0
+    };
 
     constructor(properties: Properties) {
         this.bus = properties.bus;
@@ -47,10 +52,10 @@ class BMP280 implements Properties {
     async writeConfig(configuration: Configuration): Promise<void> {
         const cfg = new DefaultConfiguration(configuration);
 
-        const registers = cfg.registers;
+        this.registers = cfg.registers;
 
-        await this.write(ctrl_meas, registers.ctrl_meas);
-        await this.write(config, registers.config);
+        await this.write(ctrl_meas, this.registers.ctrl_meas);
+        await this.write(config, this.registers.config);
     }
 
     async read(register: number): Promise<number> {
@@ -61,7 +66,12 @@ class BMP280 implements Properties {
         await registerWrite(this.device as I2cBus, this.address, register, value);
     }
 
-    async values(): Promise<Measurements> {
+    async sensors(): Promise<Measurements> {
+        if (this.configuration.mode === Mode.forced) {
+            await this.write(ctrl_meas, this.registers.ctrl_meas);
+            await this.pause();
+        }
+
         const raw = await readBlock(this.device as I2cBus, this.address, press.msb, 6);
 
         const result: Measurements = {
@@ -89,6 +99,12 @@ class BMP280 implements Properties {
         const raw = await readBlock(this.device as I2cBus, this.address, from, size);
 
         return new Calibration(raw);
+    }
+
+    private pause(): Promise<void> {
+        return new Promise(resolve => {
+            setTimeout(resolve, 100);
+        });
     }
 }
 
