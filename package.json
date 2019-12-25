@@ -2,6 +2,7 @@
   "name": "@idenisovs/bmp280",
   "version": "1.0.0",
   "description": "Yet another BMP280 sensor library.",
+  "private": false,
   "main": "lib/index.js",
   "types": "types/index.d.ts",
   "scripts": {
