@@ -1,12 +1,16 @@
+import Properties from './properties';
 import Configuration from './configuration';
-import {Mode} from './configuration/mode';
-import {Oversampling} from './configuration/oversampling';
+import {WeatherMonitoring} from './configuration/predefined';
 
-class BMP280 {
-    private mode = Mode.normal;
-    private oversampling = Oversampling.none;
+class BMP280 implements Properties {
+    bus: number;
+    address: number;
+    configuration: Configuration;
 
-    constructor(config: Configuration) {
+    constructor(properties: Properties) {
+        this.bus = properties.bus;
+        this.address = properties.address;
+        this.configuration = properties.configuration || new WeatherMonitoring();
     }
 }
 

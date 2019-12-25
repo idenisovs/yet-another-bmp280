@@ -1,10 +1,10 @@
-import Configuration from './index';
 import {Mode} from './mode';
 import {Filter} from './filter';
 import {Oversampling} from './oversampling';
 import {Standby} from './standby';
+import Configuration from './index';
 
-export default class WeatherMonitoring implements Configuration {
+export class WeatherMonitoring implements Configuration {
     mode: Mode;
     filter: Filter;
     oversampling: { pressure: Oversampling; temperature: Oversampling };
