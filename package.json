@@ -1,5 +1,5 @@
 {
-  "name": "yet-another-bmp280",
+  "name": "@idenisovs/bmp280",
   "version": "1.0.0",
   "description": "Yet another BMP280 sensor library.",
   "main": "lib/index.js",
