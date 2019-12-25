@@ -1,15 +1,19 @@
 {
   "name": "bmp280",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Yet another BMP280 sensor library.",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "clean": "rm -fr ./lib/* ./types/*",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "tsc --watch"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Ilja Denisovs <i.denisovs@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:idenisovs/yet-another-bmp280.git"
+  },
   "dependencies": {
     "i2c-bus": "^5.1.0"
   },
