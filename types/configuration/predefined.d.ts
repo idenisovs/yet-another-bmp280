@@ -1,15 +1,21 @@
 import { Mode } from './mode';
 import { Filter } from './filter';
-import { Oversampling } from './oversampling';
 import { Standby } from './standby';
 import Configuration from './index';
-export declare class WeatherMonitoring implements Configuration {
+import { Registers } from '../registers';
+export declare class DefaultConfiguration implements Configuration {
     mode: Mode;
     filter: Filter;
-    oversampling: {
-        pressure: Oversampling;
-        temperature: Oversampling;
-    };
     standby: Standby;
+    oversampling: {
+        temperature: number;
+        pressure: number;
+    };
+    get registers(): Registers;
+    set registers(value: Registers);
+    constructor(configuration: Configuration | Registers);
+    toString(): string;
+}
+export declare class WeatherMonitoring extends DefaultConfiguration {
     constructor();
 }
