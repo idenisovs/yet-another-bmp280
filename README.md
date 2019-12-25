@@ -8,7 +8,9 @@ This library is heavily inspired by **Ptax**'s [BMP 280 sensor library](https://
 
 ## Installation
 
-TBD
+```bash
+npm install @idenisovs/bmp280
+```
 
 ## Example
 
