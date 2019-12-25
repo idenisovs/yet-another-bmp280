@@ -1,11 +1,15 @@
 {
   "name": "@idenisovs/bmp280",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Yet another BMP280 sensor library.",
   "private": false,
   "main": "lib/index.js",
   "types": "types/index.d.ts",
-  "keywords": ["bmp280", "i2c", "iot"],
+  "keywords": [
+    "bmp280",
+    "i2c",
+    "iot"
+  ],
   "scripts": {
     "clean": "rm -fr ./lib/* ./types/*",
     "watch": "tsc --watch"
