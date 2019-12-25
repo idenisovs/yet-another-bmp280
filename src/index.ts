@@ -9,7 +9,7 @@ import {uint20} from './data-types';
 import Calibration from './calibration';
 import {Mode} from './configuration/mode';
 
-class BMP280 implements Properties {
+export class BMP280 implements Properties {
     device: I2cBus|null;
     bus: number;
     address: number;
@@ -107,5 +107,3 @@ class BMP280 implements Properties {
         });
     }
 }
-
-module.exports = BMP280;
