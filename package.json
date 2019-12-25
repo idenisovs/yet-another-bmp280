@@ -5,6 +5,7 @@
   "private": false,
   "main": "lib/index.js",
   "types": "types/index.d.ts",
+  "keywords": ["bmp280", "i2c", "iot"],
   "scripts": {
     "clean": "rm -fr ./lib/* ./types/*",
     "watch": "tsc --watch"
