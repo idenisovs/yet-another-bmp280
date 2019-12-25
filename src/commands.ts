@@ -47,6 +47,19 @@ export function registerWrite(device: I2cBus, address: number, register: number,
     });
 }
 
+export function readBlock(device: I2cBus, address: number, start: number, size: number): Promise<Buffer> {
+    return new Promise((resolve, reject) => {
+        device.readI2cBlock(address, start, size, Buffer.alloc(size), ((error, bytesReadOrWritten, buffer) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(buffer);
+            }
+        }));
+    });
+
+}
+
 export function disconnect(device: I2cBus): Promise<void> {
     return new Promise((resolve, reject) => {
         device.close((error => {
